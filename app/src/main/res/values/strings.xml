@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">大平台</string>
+
+    <string name="menu_event">熱門活動</string>
+    <string name="menu_suggest">主題推薦</string>
+    <string name="menu_version">版本</string>
+
+    <string name="version_const">版本：%s</string>
+    <string name="button_ok">確定</string>
+    <string name="text_loading">加載中</string>
+    <string name="text_unknowError">未知錯誤</string>
+    <string name="text_Error_Connected">未連接上網路</string>
+</resources>
