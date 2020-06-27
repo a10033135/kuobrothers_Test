@@ -1,9 +1,11 @@
 package com.sample.module
 
+import com.google.gson.annotations.SerializedName
+
 data class Suggest(
-    val note: String? = "",
-    val issue: List<Issue> = listOf(),
-    val title: String? = ""
+    val note: String? = null,
+    @SerializedName("issue") val issues: List<Issue> = listOf(),
+    val title: String? = null
 )
 
 data class Issue(

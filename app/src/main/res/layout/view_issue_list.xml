@@ -17,26 +17,26 @@
 
         <TextView
             android:id="@+id/tv_startDate"
-            style="@style/textview_title"
+            style="@style/tv_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/tv_endDate"
-            style="@style/textview_title"
+            style="@style/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/tv_title"
-            style="@style/textview_title"
+            style="@style/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
 
         <TextView
             android:id="@+id/tv_descriptionFilterHtml"
-            style="@style/textview_content"
+            style="@style/tv_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 

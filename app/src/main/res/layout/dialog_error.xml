@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="viewModel"
             type="com.sample.dialog.ErrorDialogViewModel" />
@@ -30,7 +29,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
-                tools:text="@{viewModel.errMsg}" />
+                tools:text="@{viewModel.errMsg}"
+                style="@style/dialog_tv_white" />
 
             <Button
                 android:id="@+id/err_btConfirm"

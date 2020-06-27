@@ -15,10 +15,11 @@ import com.sample.base.BaseViewModel
 import com.sample.databinding.DialogErrorBinding
 import com.sample.utils.Common.REQ_CHECK_INTERNET
 import com.sample.utils.NetWork
+import kotlinx.android.synthetic.main.dialog_error.*
 
 class ErrorDialog : BaseDialogFragment() {
 
-    private var msg: String? = null
+    private var msg: String? = null /* 錯誤訊息 */
     private var binding: DialogErrorBinding? = null
     private lateinit var viewModel: ErrorDialogViewModel
 
@@ -36,14 +37,19 @@ class ErrorDialog : BaseDialogFragment() {
 
         with(binding!!) {
             lifecycleOwner = viewLifecycleOwner
-            errBtConfirm.setOnClickListener { onclick() }
+            errBtConfirm.setOnClickListener { checkError() }
             viewModel = this@ErrorDialog.viewModel
         }
-        viewModel.errMsg = liveData { emit(msg ?: getString(R.string.text_unknowError)) }
         return binding?.root
     }
 
-    private fun onclick() {
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        viewModel.errMsg = liveData { emit(msg ?: getString(R.string.text_unknowError)) }
+    }
+
+    /* 再次檢查原錯誤，並執行對應程序 */
+    private fun checkError() {
         when (targetRequestCode) {
             REQ_CHECK_INTERNET -> checkNetConnected()
             else -> dismissAllowingStateLoss()

@@ -40,7 +40,7 @@ class EventFragment : BaseFragment() {
         return binding?.root
     }
 
-    override fun loadData() {
+    override  fun loadData() {
         MyDialog.showLoadingDialog(this)
         viewModel.events.observe(viewLifecycleOwner, Observer {
             eventAdapter.events = it

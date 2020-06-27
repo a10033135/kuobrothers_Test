@@ -10,7 +10,6 @@ import com.sample.R
 import com.sample.base.BaseDialogFragment
 import com.sample.databinding.DialogLoadingBinding
 
-
 class LoadingDialog : BaseDialogFragment() {
 
     var binding: DialogLoadingBinding? = null

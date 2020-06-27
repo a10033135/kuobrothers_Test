@@ -13,7 +13,7 @@ import com.sample.api.RepositoryManager
 import com.sample.base.BaseFragment
 import com.sample.base.BaseViewModel
 import com.sample.databinding.FragmentSuggestBinding
-import com.sample.databinding.ViewSuggestListBinding
+import com.sample.databinding.ViewIssueListBinding
 import com.sample.dialog.MyDialog
 import com.sample.module.Issue
 
@@ -41,53 +41,55 @@ class SuggestFragment : BaseFragment() {
 
     override fun loadData() {
         MyDialog.showLoadingDialog(this)
-        viewModel.suggest.observe(viewLifecycleOwner, Observer {
-            suggestListAdapter.issueList = it
+        viewModel.issues.observe(viewLifecycleOwner, Observer {
+            suggestListAdapter.issues = it
             MyDialog.closeLoadingDialog()
         })
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
+        binding?.recyclerList?.adapter = null
         binding = null
     }
 }
 
 class SuggestViewModel : BaseViewModel() {
 
-    val suggest = liveData {
-        emit(RepositoryManager.getSuggest().issue)
+    val issues = liveData {
+        emit(RepositoryManager.getSuggest().issues)
     }
 
 }
 
 class SuggestListAdapter : RecyclerView.Adapter<SuggestHolder>() {
 
-    var issueList: List<Issue>? = null
+    var issues: List<Issue>? = null
         set(value) {
             field = value
             notifyDataSetChanged()
         }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SuggestHolder {
-        val binding = ViewSuggestListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ViewIssueListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return SuggestHolder(binding)
     }
 
-    override fun getItemCount(): Int {
-        return issueList?.size ?: 0
-    }
-
     override fun onBindViewHolder(holder: SuggestHolder, position: Int) {
-        val issue = issueList?.getOrNull(position)
+        val issue = issues?.getOrNull(position)
         issue.let {
-            holder.binding.tvStartDate.text = "開始日期："+it?.startDate
-            holder.binding.tvEndDate.text = "結束日期："+it?.endDate
+            holder.binding.tvStartDate.text = "開始日期：" + it?.startDate
+            holder.binding.tvEndDate.text = "結束日期：" + it?.endDate
             holder.binding.tvTitle.text = it?.title
             holder.binding.tvDescriptionFilterHtml.text = it?.descriptionFilterHtml
 
         }
     }
+
+    override fun getItemCount(): Int {
+        return issues?.size ?: 0
+    }
 }
 
-class SuggestHolder(var binding: ViewSuggestListBinding) : RecyclerView.ViewHolder(binding.root)
+/* EventFragment 使用 findViewById ，考量此Adapter為專用，因此仍使用 viewBinding 形式 */
+class SuggestHolder(var binding: ViewIssueListBinding) : RecyclerView.ViewHolder(binding.root)

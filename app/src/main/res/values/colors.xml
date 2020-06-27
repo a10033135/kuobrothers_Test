@@ -8,4 +8,5 @@
     <color name="row_background">#EDEDDC</color>
     <color name="transparent">#00000000</color>
     <color name="red">#FF5252</color>
+    <color name="white">#FFFFFF</color>
 </resources>
