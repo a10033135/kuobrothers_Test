@@ -1,6 +1,7 @@
 package com.sample.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,9 +42,13 @@ class SuggestFragment : BaseFragment() {
 
     override fun loadData() {
         MyDialog.showLoadingDialog(this)
+        viewModel.issues = liveData {
+            emit(RepositoryManager.getSuggest().issues)
+            MyDialog.closeLoadingDialog()
+        }
+
         viewModel.issues.observe(viewLifecycleOwner, Observer {
             suggestListAdapter.issues = it
-            MyDialog.closeLoadingDialog()
         })
     }
 
@@ -56,8 +61,8 @@ class SuggestFragment : BaseFragment() {
 
 class SuggestViewModel : BaseViewModel() {
 
-    val issues = liveData {
-        emit(RepositoryManager.getSuggest().issues)
+    var issues = liveData {
+        emit(listOf<Issue>())
     }
 
 }

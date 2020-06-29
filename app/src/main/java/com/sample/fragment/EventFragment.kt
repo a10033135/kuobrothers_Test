@@ -40,8 +40,9 @@ class EventFragment : BaseFragment() {
         return binding?.root
     }
 
-    override  fun loadData() {
+    override fun loadData() {
         MyDialog.showLoadingDialog(this)
+        viewModel.events = liveData { emit(RepositoryManager.getEventList()) }
         viewModel.events.observe(viewLifecycleOwner, Observer {
             eventAdapter.events = it
             MyDialog.closeLoadingDialog()
@@ -56,8 +57,8 @@ class EventFragment : BaseFragment() {
 }
 
 class EventViewModel : BaseViewModel() {
-    val events = liveData {
-        emit(RepositoryManager.getEventList())
+    var events = liveData {
+        emit(listOf<Event>())
     }
 }
 
